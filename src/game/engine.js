@@ -12,7 +12,7 @@ export function initGame(canvas, callbacks) {
   let gameState = 'explore';
   let perry = {
     x: 5, y: 7, dir: 'down',
-    hp: 30, maxHp: 30, atk: 8, def: 5, spd: 6, level: 1, exp: 0, expNext: 10,
+    hp: 30, maxHp: 30, atk: 5, def: 5, spd: 6, level: 1, exp: 0, expNext: 10,
     moves: [
       { name: 'Fedora Toss', power: 12, type: 'physical', desc: 'Flings his fedora like a frisbee' },
       { name: 'Rant', power: 8, type: 'special', desc: 'A confusing verbal tirade', effect: 'confuse', effectChance: 0.3 },
