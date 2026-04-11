@@ -17,7 +17,7 @@ export function initGame(canvas, callbacks) {
       { name: 'Fedora Toss', power: 12, type: 'physical', desc: 'Flings his fedora like a frisbee' },
       { name: 'Rant', power: 8, type: 'special', desc: 'A confusing verbal tirade', effect: 'confuse', effectChance: 0.3 },
       { name: 'Belly Bump', power: 15, type: 'physical', desc: 'A devastating stomach check', accuracy: 0.8 },
-      { name: 'Snack Break', power: 0, type: 'heal', desc: 'Eats a Filet-O-Fish to heal', healAmt: 10 },
+      { name: 'Snack Break', power: 0, type: 'heal', desc: 'Eats a Filet-O-Fish or Skittles to heal', healAmt: 10 },
     ],
   };
   let currentMapId = 'apartment';
