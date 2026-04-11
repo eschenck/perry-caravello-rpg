@@ -33,7 +33,7 @@ export const MAPS = {
     encounterTiles: new Set(['.']),
     interactTiles: {
       'V': ["Perry turns on the TV.", "A documentary is playing: 'RESEDA '92 — THE SUMMER EVERYTHING CHANGED'", "Perry sees a familiar face on screen. Randy Callahan. Still looks the same.", "He stares for a long, long moment... then slowly changes the channel."],
-      'Q': ["Perry looks at the toilet. It's seen better days... much better days."],
+      'Q': ["Perry looks at the toilet.", "There's a polaroid wedged behind the tank.", "Perry + Revee. Prom Night 1992. Her smile. His fedora.", "He shoves it back behind the tank.", "Some things you keep."],
       'E': ["The bed is covered in clothes, food wrappers, and what might be a laptop."],
       'L': ["The couch has achieved sentience. Or at least it smells like it has."],
       'K': ["The kitchen counter. There's a layer of grease that could be carbon dated."],
@@ -65,8 +65,7 @@ export const MAPS = {
       { x:18, y:11, name:'Filet-O-Fish (Warm)', emoji:'🐟', type:'heal', value:12 },
     ],
     npcs: [
-      { x:13, y:3, emoji:'📻', dialog:["An old talk radio show crackles through the static...", "HOST: 'And joining us tonight — Randy Callahan, who was THERE during the Reseda incident of 1992...'", "Perry lunges for the off switch.", "His hand is shaking. He doesn't want to hear this. Not today."] },
-    ],
+      { x:13, y:3, emoji:'📻', dialog:["An old talk radio show crackles through the static...", "HOST: 'And joining us tonight — Randy Callahan, who was THERE during the Reseda incident of 1992...'", "Perry lunges for the off switch.", "His hand is shaking. He doesn't want to hear this. Not today."] },      { x:16, y:2, emoji:'\ud83d\udcdd', dialog:["A crumpled note on the floor. Perry's handwriting.", "'Revee \u2014 I'm sorry about the hotel. I panicked. I know you had to climb out the window.'", "'I've been trying to explain for 30 years.'", "'Call me. \u2014 Perry'", "The number is smudged beyond reading."] },    ],
   },
 
   reseda: {
@@ -159,11 +158,12 @@ export const MAPS = {
     ],
     npcs: [
       { x:14, y:7, emoji:'🏥', dialog:["Welcome to the Reseda Center!","Your health has been restored!"], action:'heal' },
-      { x:3, y:7, emoji:'👴', dialog:["I've lived in Reseda since '72.", "It used to be nice... well, nicer anyway.", "Watch out for the Drifter King near the river!", "...You haven't seen Randy Callahan around, have you?", "He's been back in town since last week.", "After what happened in '92... I'm surprised he'd show his face here."] },
+      { x:3, y:7, emoji:'\ud83d\udc74', dialog:["I've lived in Reseda since '72.", "It used to be nice... well, nicer anyway.", "Watch out for the Drifter King near the river!", "...You haven't seen Randy Callahan around, have you?", "He's been back in town since last week.", "After what happened in '92... I'm surprised he'd show his face here.", "He and Revee were thick as thieves back then.", "After prom night she came home without shoes. Climbed out a hotel window apparently.", "Whole neighborhood knew by morning."] },
+      { x:12, y:15, emoji:'\ud83d\udc69', dialog:["I'm Revee.", "...yes, THAT Revee.", "Look, the hotel thing was a long time ago.", "It was prom night. Perry got weird. I handled it.", "Climbed out the window in heels. Lost one shoe on the awning.", "Honestly? Kind of funny in retrospect.", "What's NOT funny is that Randy Callahan is still out here acting like it's his business.", "Tell Perry I said hi. And to call me. He has the number."] },
       { x:25, y:9, emoji:'👩‍🍳', dialog:["Best tacos in the Valley, right here!","Too bad I can't give you any. Budget cuts."] },
       { x:7, y:17, emoji:'🪧', dialog:["SIGN: 'Reseda Blvd - Est. 1912'","'Home of... well, Perry Caravello lives here.'"] },
       { x:28, y:14, emoji:'🎣', dialog:["I'm fishing in the LA River.","Don't ask what I've caught. You don't wanna know."] },
-      { x:22, y:8, emoji:'😤', dialog:["...", "Perry Caravello.", "I saw you the moment you walked into Reseda.", "Did you really think I forgot about '92?", "The summer. The heat. What happened on Vanowen Street.", "I've been waiting a long time for this.", "Find me when you're ready to finish what we started."] },
+      { x:22, y:8, emoji:'\ud83d\ude24', dialog:["...", "Perry Caravello.", "I saw you the moment you walked into Reseda.", "Did you really think I forgot about '92?", "The summer. The heat. What happened on Vanowen Street.", "You think I don't know about Revee?", "She told me everything, Perry. EVERYTHING.", "The prom. The hotel. The window.", "I've been waiting a long time for this.", "Find me when you're ready to finish what we started."] },
       { x:2, y:3, emoji:'🧔', dialog:["*rustles cardboard blanket*","...spare some change, brother?","I used to sleep inside. Wild times."] },
       { x:6, y:3, emoji:'🧔', dialog:["Yo... Perry?","You still owe me twenty bucks from last Tuesday.","Also your apartment smells."] },
       { x:3, y:5, emoji:'🛒', dialog:["*loud snoring*","Zzzz... Grand Slam... extra bacon... Zzzzz..."] },

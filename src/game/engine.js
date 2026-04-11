@@ -15,7 +15,7 @@ export function initGame(canvas, callbacks) {
     hp: 30, maxHp: 30, atk: 5, def: 5, spd: 6, level: 1, exp: 0, expNext: 10,
     moves: [
       { name: 'Fedora Toss', power: 12, type: 'physical', desc: 'Flings his fedora like a frisbee' },
-      { name: 'Rant', power: 8, type: 'special', desc: 'A confusing verbal tirade', effect: 'confuse', effectChance: 0.3 },
+      { name: 'Banshee Voice', power: 18, type: 'special', desc: 'Unleashes an unholy shriek', effect: 'confuse', effectChance: 0.5 },
       { name: 'Belly Bump', power: 15, type: 'physical', desc: 'A devastating stomach check', accuracy: 0.8 },
       { name: 'Snack Break', power: 0, type: 'heal', desc: 'Eats a Filet-O-Fish or Skittles to heal', healAmt: 10 },
     ],
