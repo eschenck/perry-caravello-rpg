@@ -541,6 +541,9 @@ export function initGame(canvas, callbacks) {
     startGame,
     playerAttack,
     tryRun,
+    move: (dx, dy) => {
+      if (gameState === 'explore') { tryMove(dx, dy); render(); }
+    },
     advanceDialog: () => {
       // called when user clicks the dialog box
       if (dialogAdvanceKey) {

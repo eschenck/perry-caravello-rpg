@@ -4,19 +4,25 @@ body {
   background: #111;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  align-items: flex-start;
+  min-height: 100dvh;
+  overflow: hidden;
   font-family: 'Courier New', monospace;
 }
 
 .game-container {
   position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 canvas {
   image-rendering: pixelated;
   border: 3px solid #444;
   display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ── HUD ── */
@@ -101,6 +107,8 @@ canvas {
   border: 2px solid #aaa;
   border-radius: 8px;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary:hover {
@@ -231,4 +239,96 @@ canvas {
   text-align: center;
   min-height: 38px;
   color: #eee;
+}
+
+/* ── Virtual D-pad ── */
+.dpad {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  display: grid;
+  grid-template-areas:
+    ". up ."
+    "left center right"
+    ". down .";
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
+  gap: 4px;
+  user-select: none;
+  touch-action: none;
+}
+
+.dpad-up     { grid-area: up; }
+.dpad-left   { grid-area: left; }
+.dpad-center { grid-area: center; background: rgba(255,255,255,0.05); border-radius: 8px; }
+.dpad-right  { grid-area: right; }
+.dpad-down   { grid-area: down; }
+
+.dpad-btn {
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  font-size: 18px;
+  border-radius: 10px;
+  touch-action: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dpad-btn:active {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Action button (dialog advance) ── */
+.action-btn {
+  position: absolute;
+  bottom: 22px;
+  right: 18px;
+  width: 60px;
+  height: 60px;
+  background: rgba(80, 80, 200, 0.65);
+  border: 2px solid rgba(160, 160, 255, 0.8);
+  color: #fff;
+  font-size: 22px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  border-radius: 50%;
+  touch-action: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn:active {
+  background: rgba(100, 100, 255, 0.9);
+}
+
+/* ── Larger touch targets for battle buttons on mobile ── */
+@media (pointer: coarse) {
+  .battle-menu button,
+  .moves-list button {
+    padding: 14px 22px;
+    font-size: 17px;
+    min-height: 52px;
+  }
+
+  .dialog-box {
+    font-size: 18px;
+    padding: 16px 18px;
+    min-height: 72px;
+  }
+}
+
+/* ── Hide D-pad / action btn on desktop (mouse) ── */
+@media (hover: hover) and (pointer: fine) {
+  .dpad,
+  .action-btn {
+    display: none;
+  }
 }

@@ -2,6 +2,43 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { initGame } from './game/engine.js';
 import './Game.css';
 
+function DPad({ onMove }) {
+  const repeatRef = useRef(null);
+
+  const startMove = useCallback((dx, dy, e) => {
+    e.preventDefault();
+    onMove(dx, dy);
+    repeatRef.current = setInterval(() => onMove(dx, dy), 150);
+  }, [onMove]);
+
+  const stopMove = useCallback((e) => {
+    e.preventDefault();
+    clearInterval(repeatRef.current);
+  }, []);
+
+  const btn = (label, dx, dy, cls) => (
+    <button
+      className={`dpad-btn ${cls}`}
+      onPointerDown={(e) => startMove(dx, dy, e)}
+      onPointerUp={stopMove}
+      onPointerLeave={stopMove}
+      onPointerCancel={stopMove}
+    >
+      {label}
+    </button>
+  );
+
+  return (
+    <div className="dpad">
+      {btn('▲', 0, -1, 'dpad-up')}
+      {btn('◀', -1, 0, 'dpad-left')}
+      <div className="dpad-center" />
+      {btn('▶', 1, 0, 'dpad-right')}
+      {btn('▼', 0, 1, 'dpad-down')}
+    </div>
+  );
+}
+
 export default function Game() {
   const canvasRef = useRef(null);
   const engineRef = useRef(null);
@@ -90,9 +127,27 @@ export default function Game() {
 
       {/* ── Dialog ── */}
       {dialog.visible && (
-        <div className="dialog-box" onClick={handleDialogClick}>
+        <div
+          className="dialog-box"
+          onPointerDown={(e) => { e.preventDefault(); handleDialogClick(); }}
+        >
           {dialog.text}{dialog.done ? ' ▼' : ''}
         </div>
+      )}
+
+      {/* ── Virtual D-pad (touch / mobile) ── */}
+      {phase === 'explore' && (
+        <DPad onMove={(dx, dy) => engineRef.current?.move(dx, dy)} />
+      )}
+
+      {/* ── Action button: advance dialog on touch ── */}
+      {phase === 'dialog' && dialog.visible && (
+        <button
+          className="action-btn"
+          onPointerDown={(e) => { e.preventDefault(); handleDialogClick(); }}
+        >
+          A
+        </button>
       )}
 
       {/* ── Battle overlay ── */}
