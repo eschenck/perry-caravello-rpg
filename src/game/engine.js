@@ -190,31 +190,76 @@ export function initGame(canvas, callbacks) {
   function drawPerry() {
     const px = (perry.x - camera.x) * TILE;
     const py = (perry.y - camera.y) * TILE;
+    const skin = '#c9956a';
+    const skinShad = '#b07858';
+
+    // Ground shadow
     ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    ctx.beginPath(); ctx.ellipse(px + 16, py + 30, 10, 4, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#3a3a6a';
-    ctx.fillRect(px + 10, py + 24, 5, 7); ctx.fillRect(px + 17, py + 24, 5, 7);
-    ctx.fillStyle = '#222';
-    ctx.fillRect(px + 9, py + 29, 6, 2); ctx.fillRect(px + 17, py + 29, 6, 2);
-    ctx.fillStyle = '#cc4444'; ctx.fillRect(px + 6, py + 12, 20, 13);
-    ctx.fillStyle = '#bb3333';
-    ctx.beginPath(); ctx.ellipse(px + 16, py + 20, 11, 6, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#cc4444';
-    ctx.fillRect(px + 3, py + 13, 5, 10); ctx.fillRect(px + 24, py + 13, 5, 10);
-    ctx.fillStyle = '#e8b88a';
-    ctx.fillRect(px + 3, py + 22, 4, 3); ctx.fillRect(px + 25, py + 22, 4, 3);
-    ctx.fillStyle = '#e8b88a';
-    ctx.beginPath(); ctx.ellipse(px + 16, py + 9, 7, 7, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(px+16, py+30, 12, 4, 0, 0, Math.PI*2); ctx.fill();
+
+    // Pants (dark jeans)
+    ctx.fillStyle = '#2a2a5a';
+    ctx.fillRect(px+9, py+22, 6, 9); ctx.fillRect(px+17, py+22, 6, 9);
+    // Shoes
+    ctx.fillStyle = '#111';
+    ctx.fillRect(px+8, py+29, 7, 3); ctx.fillRect(px+17, py+29, 7, 3);
+
+    // Wide chubby shirtless torso
+    ctx.fillStyle = skin;
+    ctx.fillRect(px+5, py+12, 22, 11);
+    // Beer gut / belly bulge
+    ctx.beginPath(); ctx.ellipse(px+16, py+22, 12, 6, 0, 0, Math.PI*2); ctx.fill();
+    // Chubby arms
+    ctx.fillRect(px+1, py+12, 5, 11); ctx.fillRect(px+26, py+12, 5, 11);
+    // Hands (slightly darker)
+    ctx.fillStyle = skinShad;
+    ctx.fillRect(px+1, py+22, 5, 3); ctx.fillRect(px+26, py+22, 5, 3);
+    // Chest / pec crease
+    ctx.fillStyle = skinShad;
+    ctx.fillRect(px+8, py+17, 7, 1); ctx.fillRect(px+17, py+17, 7, 1);
+    // Belly button
+    ctx.fillRect(px+15, py+22, 2, 2);
+    // Nipples
+    ctx.fillStyle = '#9a6040';
+    ctx.fillRect(px+10, py+16, 2, 1); ctx.fillRect(px+20, py+16, 2, 1);
+
+    // Neck
+    ctx.fillStyle = skin;
+    ctx.fillRect(px+13, py+13, 6, 4);
+    // Head (round, slightly large)
+    ctx.beginPath(); ctx.ellipse(px+16, py+8, 8, 8, 0, 0, Math.PI*2); ctx.fill();
+
     if (perry.dir !== 'up') {
-      ctx.fillStyle = '#000';
-      ctx.fillRect(px + 12, py + 7, 2, 2); ctx.fillRect(px + 18, py + 7, 2, 2);
-      ctx.fillRect(px + 14, py + 11, 4, 1);
-      ctx.fillStyle = 'rgba(0,0,0,0.15)'; ctx.fillRect(px + 11, py + 10, 10, 4);
+      // Stubble / jaw shadow
+      ctx.fillStyle = 'rgba(60,30,10,0.42)';
+      ctx.fillRect(px+10, py+10, 12, 5);
+      // Eyes (beady)
+      ctx.fillStyle = '#111';
+      ctx.fillRect(px+11, py+5, 2, 2); ctx.fillRect(px+19, py+5, 2, 2);
+      // Eye gleam
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(px+12, py+5, 1, 1); ctx.fillRect(px+20, py+5, 1, 1);
+      // Nose
+      ctx.fillStyle = skinShad;
+      ctx.fillRect(px+15, py+8, 3, 2);
+      // Big toothy grin
+      ctx.fillStyle = '#111';
+      ctx.fillRect(px+11, py+11, 10, 3);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(px+12, py+12, 8, 1);
     }
-    ctx.fillStyle = '#4a3728'; ctx.fillRect(px + 4, py + 2, 24, 3);
-    ctx.fillStyle = '#5a4738'; ctx.fillRect(px + 8, py - 4, 16, 7);
-    ctx.fillStyle = '#222'; ctx.fillRect(px + 8, py + 1, 16, 1);
-    ctx.fillStyle = '#4a3728'; ctx.fillRect(px + 10, py - 4, 12, 1);
+
+    // Fedora brim (wide, very dark)
+    ctx.fillStyle = '#111';
+    ctx.fillRect(px+2, py+1, 28, 3);
+    // Fedora crown
+    ctx.fillRect(px+7, py-5, 18, 7);
+    // Hat band
+    ctx.fillStyle = '#1a1010';
+    ctx.fillRect(px+7, py+1, 18, 2);
+    // Crown pinch
+    ctx.fillStyle = '#0a0808';
+    ctx.fillRect(px+10, py-5, 12, 1);
   }
 
   function drawItems() {

@@ -72,8 +72,8 @@ export const MAPS = {
     tileData: [
       "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
       "T..BBB..TYY.TT....T..RRRR....T.",
-      "T..BbB..TYY.TT....T..RRRR.BB.T.",
-      "T........YY.......T..RRRR.Bb.T.",
+      "T..BbB..TYY.TT....T..RRRR.ZZ.T.",
+      "T........YY.......T..RRRR.Zz.T.",
       "T....T........T...T..RRRR....T.",
       "RRRRRRRRRRRRRRRRRRRRRR+RRRRRRRT.",
       "T.HH..P.S...T.....S.P..HH..P.T.",
@@ -109,8 +109,9 @@ export const MAPS = {
       'B': '#995533', 'b': '#8B4513', 'H': '#aa6644', 'h': '#996633',
       'C': '#cc3333', 'c': '#cc3333', 'M': '#887744', 'm': '#776633',
       'W': '#3388cc', 'Y': '#4499dd', 'N': '#8B6914', 'D': '#4a8a3a',
-    },
-    solidTiles: new Set(['T', 'P', 'W', 'B', 'C', 'M', 'H', 'Y', 'N']),
+        'Z': '#cc2020', 'z': '#991818',
+      },
+      solidTiles: new Set(['T', 'P', 'W', 'B', 'C', 'M', 'H', 'Y', 'N', 'Z']),
     encounterTiles: new Set(['.', 'S']),
     interactTiles: {
       'T': ["A tree. Birds are chirping in the branches."],
@@ -122,8 +123,9 @@ export const MAPS = {
       'C': ["RESEDA CENTER - Your health has been restored!"],
       'M': ["A small market. Smells like tacos and cheap beer."],
       'N': ["A sign reads: 'Reseda Blvd — The Heart of the Valley'"],
+      'Z': ["DENNY'S - Open 24/7. Grand Slams. Coffee. Regret.", "Perry stares at the menu. He can't afford anything. He orders water."],
     },
-    tileDecorations: { 'N': '🪧', 'Y': '🌊' },
+    tileDecorations: { 'N': '🪧', 'Y': '🌊', 'Z': '🥞' },
     enemies: [
       { name:'Stray Dog', emoji:'🐕', level:2, hp:18, atk:6, def:3, spd:7, exp:7, moves:['Bite','Bark','Tail Whip'], flavor:'A stray dog blocks your path!' },
       { name:'Pigeon Flock', emoji:'🐦🐦🐦', level:2, hp:15, atk:5, def:2, spd:9, exp:6, moves:['Dive Bomb','Coo Chorus','Peck'], flavor:'A flock of aggressive pigeons attacks!' },
@@ -148,8 +150,11 @@ export const MAPS = {
       { x:3, y:7, emoji:'👴', dialog:["I've lived in Reseda since '72.","It used to be nice... well, nicer anyway.","Watch out for the Drifter King near the river!"] },
       { x:25, y:9, emoji:'👩‍🍳', dialog:["Best tacos in the Valley, right here!","Too bad I can't give you any. Budget cuts."] },
       { x:7, y:17, emoji:'🪧', dialog:["SIGN: 'Reseda Blvd - Est. 1912'","'Home of... well, Perry Caravello lives here.'"] },
-      { x:28, y:14, emoji:'🎣', dialog:["I'm fishing in the LA River.","Don't ask what I've caught. You don't wanna know."] },
-    ],
+      { x:28, y:14, emoji:'🎣', dialog:["I'm fishing in the LA River.","Don't ask what I've caught. You don't wanna know."] },      { x:2, y:3, emoji:'🧔', dialog:["*rustles cardboard blanket*","...spare some change, brother?","I used to sleep inside. Wild times."] },
+      { x:6, y:3, emoji:'🧔\u200d♂️', dialog:["Yo... Perry?","You still owe me twenty bucks from last Tuesday.","Also your apartment smells."] },
+      { x:3, y:5, emoji:'🛒', dialog:["*loud snoring*","Zzzz... Grand Slam... extra bacon... Zzzzz..."] },
+      { x:7, y:4, emoji:'🧔', dialog:["Hey! You got a Filet-O-Fish?","I will literally do anything for a Filet-O-Fish right now.","ANYTHING."] },
+      { x:25, y:4, emoji:'👩\u200d🍽️', dialog:["Welcome to Denny's! Open 24 hours!","Coffee's fresh! Well... it was fresh four hours ago.","Grand Slam special: $8.99. Today's your lucky day!"] },    ],
   },
 
   palmsprings: {
