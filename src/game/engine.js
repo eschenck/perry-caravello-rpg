@@ -320,9 +320,11 @@ export function initGame(canvas, callbacks) {
 
   function showNextDialog() {
     if (dialogQueue.length === 0) {
+      gameState = 'explore';        // always reset first; showDialog() in callback will re-set if needed
       onDialogClear();
-      if (dialogCallback) { dialogCallback(); dialogCallback = null; }
-      else { gameState = 'explore'; }
+      const cb = dialogCallback;
+      dialogCallback = null;
+      if (cb) cb();
       return;
     }
     const msg = dialogQueue.shift();
