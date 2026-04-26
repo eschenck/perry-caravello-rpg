@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { initGame } from './game/engine.js';
 import { playMusic } from './audio/musicManager.js';
+import Perry3D from './Perry3D.jsx';
 import './Game.css';
 
 const MAP_MUSIC = {
@@ -278,18 +279,7 @@ export default function Game() {
             <div className={`fighter perry-fighter upper-left ${battlePhase === 'entering' ? 'slide-in-left' : 'fighting'} ${hitAnimation === 'perry' ? 'hit-shake' : ''}`}>
               <div className="fighter-portrait perry-portrait">
                 <div className="comic-bubble perry-bubble">
-                  <div className="perry-character">
-                    <div className="perry-face">
-                      <div className="perry-hair"></div>
-                      <div className="perry-eyes">
-                        <div className="eye left-eye"></div>
-                        <div className="eye right-eye"></div>
-                      </div>
-                      <div className="perry-nose"></div>
-                      <div className="perry-mouth"></div>
-                    </div>
-                    <div className="perry-fedora"></div>
-                  </div>
+                  <Perry3D />
                 </div>
                 <div className="fighter-info perry-info">
                   <div className="fighter-name">Perry Lv.{battle.perry.level}</div>
