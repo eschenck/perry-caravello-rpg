@@ -39,7 +39,9 @@ function DPad({ onMove }) {
       onPointerDown={(e) => startMove(dx, dy, e)}
       onPointerUp={stopMove}
       onPointerCancel={stopMove}
-      onPointerLeave={stopMove}
+      // onPointerLeave intentionally omitted: pointerleave bypasses setPointerCapture
+      // and would fire on any tiny finger drift, killing the interval prematurely.
+      // pointerUp/Cancel are sufficient because setPointerCapture routes them here.
     >
       {label}
     </button>
@@ -88,8 +90,14 @@ export default function Game() {
             return state;
           }
           
-          // Check if this is an enemy attack (log contains "uses")
-          if (state.log && state.log.includes(' uses ') && state.enemy) {
+          // Check if this is an enemy attack — log must start with the enemy's name
+          // (Perry's attack messages start with "Perry uses ..." and must not trigger this)
+          const isEnemyAttack = state.enemy &&
+            state.enemy.hp > 0 &&
+            state.log &&
+            state.log.startsWith(state.enemy.name + ' uses ');
+
+          if (isEnemyAttack) {
             const enemyName = state.enemy.name;
             const logText = state.log;
             
