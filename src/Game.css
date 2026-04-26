@@ -115,137 +115,1122 @@ canvas {
   background: #555;
 }
 
-/* ── Battle ── */
+/* ── Comic Book Battle System ── */
 .battle-overlay {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.88);
+  background: linear-gradient(45deg, #1a0a2e 0%, #16213e 50%, #0f3460 100%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   color: #fff;
-  padding: 16px;
+  padding: 20px;
+  overflow: hidden;
 }
 
-.battle-scene {
-  text-align: center;
+.comic-battle-arena {
+  position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
+  height: 400px;
+  margin-top: 40px;
 }
 
-.battle-name {
-  font-size: 15px;
-  font-weight: bold;
+/* Fighter Positioning */
+.fighter {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  z-index: 2;
 }
 
-.battle-sprite {
-  font-size: 56px;
-  margin: 8px 0;
-  display: block;
+.upper-left {
+  top: 0;
+  left: 0;
 }
 
-.battle-divider {
-  border: none;
-  border-top: 1px solid #444;
-  margin: 8px 0;
+.lower-right {
+  bottom: 0;
+  right: 0;
 }
 
-.hp-row {
+.fighter-portrait {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+/* Comic Book Bubbles */
+.comic-bubble {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 8px;
   justify-content: center;
-  font-size: 13px;
-  margin-top: 4px;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  animation: float 3s ease-in-out infinite;
 }
 
-.hp-bar-wrap {
-  display: inline-block;
-  width: 130px;
+.enemy-bubble {
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, #d63031);
+  border: 4px solid #ffffff;
+}
+
+.perry-bubble {
+  background: radial-gradient(circle at 30% 30%, #74b9ff, #0984e3);
+  border: 4px solid #ffffff;
+}
+
+/* Perry Comic Book Character - Realistic Perry Caravello */
+.perry-character {
+  position: relative;
+  width: 100px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perry-face {
+  width: 75px;
+  height: 70px;
+  background: linear-gradient(145deg, #fdbcb4 0%, #f0a898 100%);
+  border-radius: 55% 55% 60% 60%;
+  position: relative;
+  border: 3px solid #2d3436;
+  box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+  /* Fuller, rounder face like Perry */
+}
+
+/* Perry's distinctive wild curly hair */
+.perry-hair {
+  position: absolute;
+  top: -18px;
+  left: 0px;
+  right: 0px;
+  height: 40px;
+  background: radial-gradient(circle at 30% 30%, #654321, #4a3018);
+  border-radius: 60% 60% 40% 40%;
+  border: 2px solid #2d3436;
+  overflow: visible;
+}
+
+/* Multiple curly hair pieces to look wild and messy like Perry */
+.perry-hair::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -15px;
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(circle, #654321, #4a3018);
+  border-radius: 70% 30% 60% 40%;
+  border: 2px solid #2d3436;
+  transform: rotate(-25deg);
+}
+
+.perry-hair::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -12px;
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle, #654321, #4a3018);
+  border-radius: 40% 60% 30% 70%;
+  border: 2px solid #2d3436;
+  transform: rotate(30deg);
+}
+
+/* Add more curly texture */
+.perry-hair {
+  box-shadow: 
+    inset -8px -8px 0 rgba(74, 48, 24, 0.8),
+    inset 8px -6px 0 rgba(74, 48, 24, 0.6),
+    inset 0 -12px 0 rgba(74, 48, 24, 0.7),
+    inset 5px 5px 0 rgba(101, 67, 33, 0.3);
+}
+
+/* Perry's distinctive eyes - friendly but tired look */
+.perry-eyes {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 15px;
+}
+
+.eye {
+  width: 12px;
   height: 12px;
-  background: #333;
-  border: 1px solid #888;
-  border-radius: 3px;
+  background: radial-gradient(circle at 30% 30%, #2d3436, #000);
+  border-radius: 60% 40% 60% 40%;
+  animation: blink 5s infinite;
+  box-shadow: inset 2px 2px 3px rgba(0,0,0,0.3);
+}
+
+/* Add eyebrows */
+.eye::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -2px;
+  width: 16px;
+  height: 3px;
+  background: #654321;
+  border-radius: 50%;
+  transform: rotate(-5deg);
+}
+
+.right-eye::before {
+  transform: rotate(5deg);
+}
+
+/* Perry's nose - more prominent */
+.perry-nose {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 7px;
+  background: linear-gradient(145deg, #e17055, #d63031);
+  border-radius: 60% 60% 70% 70%;
+  border: 1px solid #d63031;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Perry's characteristic big smile */
+.perry-mouth {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 15px;
+  border: 3px solid #2d3436;
+  border-top: none;
+  border-radius: 0 0 30px 30px;
+  background: linear-gradient(180deg, #ffffff, #f8f8f8);
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+/* Smile lines - Perry's happy expression */
+.perry-mouth::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -12px;
+  width: 15px;
+  height: 4px;
+  border-bottom: 3px solid #2d3436;
+  border-radius: 0 0 0 80%;
+  transform: rotate(-15deg);
+}
+
+.perry-mouth::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  width: 15px;
+  height: 4px;
+  border-bottom: 3px solid #2d3436;
+  border-radius: 0 0 80% 0;
+  transform: rotate(15deg);
+}
+
+/* Perry's iconic fedora */
+.perry-fedora {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 25px;
+  background: linear-gradient(145deg, #2d3436, #1e2124);
+  border-radius: 30px 30px 10px 10px;
+  border: 2px solid #636e72;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.perry-fedora::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: -15px;
+  right: -15px;
+  height: 6px;
+  background: linear-gradient(145deg, #2d3436, #1e2124);
+  border-radius: 50%;
+  border: 2px solid #636e72;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Add fedora band */
+.perry-fedora::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 4px;
+  right: 4px;
+  height: 5px;
+  background: linear-gradient(145deg, #74b9ff, #0984e3);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+@keyframes blink {
+  0%, 94% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+  97% { transform: scaleY(1); }
+}
+
+.battle-emoji {
+  font-size: 64px;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8));
+  animation: bounce 2s ease-in-out infinite;
+}
+
+/* Hit Animation */
+@keyframes hitShake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-8px); }
+  20% { transform: translateX(8px); }
+  30% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  50% { transform: translateX(-4px); }
+  60% { transform: translateX(4px); }
+  70% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+  90% { transform: translateX(-1px); }
+}
+
+.hit-shake {
+  animation: hitShake 0.5s ease-in-out !important;
+}
+
+/* Attack Animation Effects */
+.attack-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  pointer-events: none;
+  /* Debug: make visible */
+  width: 200px;
+  height: 200px;
+  /* border: 2px solid red; */ /* Uncomment to debug positioning */
+}
+
+/* Fedora Toss Animation */
+.fedora-toss .fedora-projectile {
+  font-size: 48px;
+  animation: fedoraFly 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 51;
+}
+
+@keyframes fedoraFly {
+  0% {
+    transform: translate(-100px, -50px) rotate(0deg);
+    opacity: 1;
+    scale: 1;
+  }
+  50% {
+    transform: translate(50px, 20px) rotate(360deg);
+    opacity: 1;
+    scale: 1.2;
+  }
+  100% {
+    transform: translate(150px, 60px) rotate(720deg);
+    opacity: 0;
+    scale: 0.8;
+  }
+}
+
+/* Banshee Voice Animation */
+.banshee-voice .banshee-waves {
+  font-size: 32px;
+  animation: bansheeWaves 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes bansheeWaves {
+  0% {
+    transform: scale(0.5) translate(-100px, -50px);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) translate(0px, 0px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2) translate(100px, 50px);
+    opacity: 0;
+  }
+}
+
+/* Belly Bump Animation */
+.belly-bump .belly-impact {
+  font-size: 56px;
+  animation: bellyImpact 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes bellyImpact {
+  0% {
+    transform: translate(-80px, -40px) scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(20px, 10px) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(80px, 40px) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Snack Break Animation */
+.snack-break .healing-food {
+  font-size: 40px;
+  animation: healingFood 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes healingFood {
+  0% {
+    transform: translate(-50px, -50px) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-25px, -40px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0px, -30px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Enemy Attack Animations */
+
+/* Bite Attack */
+.bite .bite-attack {
+  font-size: 40px;
+  animation: biteAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes biteAttack {
+  0% {
+    transform: translate(100px, 50px) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-20px, -10px) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-80px, -40px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Sting Attack */
+.sting .sting-attack {
+  font-size: 36px;
+  animation: stingAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes stingAttack {
+  0% {
+    transform: translate(120px, 60px) scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  30% {
+    transform: translate(60px, 30px) scale(1) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-60px, -30px) scale(1.2) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Howl Attack */
+.howl .howl-attack {
+  font-size: 32px;
+  animation: howlAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes howlAttack {
+  0% {
+    transform: translate(100px, 40px) scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(0px, 0px) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100px, -40px) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Skitter Attack */
+.skitter .skitter-attack {
+  font-size: 28px;
+  animation: skitterAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes skitterAttack {
+  0% {
+    transform: translate(150px, 80px) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(100px, 40px) scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(50px, 20px) scale(1.1);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(0px, 0px) scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50px, -20px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Kickflip Attack */
+.kickflip .kickflip-attack {
+  font-size: 32px;
+  animation: kickflipAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes kickflipAttack {
+  0% {
+    transform: translate(120px, 60px) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(30px, 10px) rotate(720deg) scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-60px, -30px) rotate(1080deg) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Projectile Attack */
+.projectile-attack {
+  font-size: 36px;
+  animation: projectileAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes projectileAttack {
+  0% {
+    transform: translate(140px, 70px) rotate(0deg);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-30px, -15px) rotate(540deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-80px, -40px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Cloud Attack */
+.cloud-attack {
+  font-size: 40px;
+  animation: cloudAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes cloudAttack {
+  0% {
+    transform: translate(100px, 50px) scale(0.3);
+    opacity: 0;
+  }
+  30% {
+    transform: translate(50px, 25px) scale(1);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translate(-20px, -10px) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-80px, -40px) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Flash Attack */
+.flash-attack {
+  font-size: 44px;
+  animation: flashAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes flashAttack {
+  0% {
+    transform: translate(0px, 0px) scale(0.1);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(0px, 0px) scale(2);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(0px, 0px) scale(2.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(0px, 0px) scale(3);
+    opacity: 0;
+  }
+}
+
+/* Swarm Attack */
+.swarm-attack {
+  font-size: 24px;
+  animation: swarmAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes swarmAttack {
+  0% {
+    transform: translate(150px, 80px) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(100px, 50px) scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(40px, 20px) scale(1.2);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-20px, -10px) scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100px, -50px) scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Generic Attack */
+.generic-attack {
+  font-size: 40px;
+  animation: genericAttack 1.2s ease-out forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes genericAttack {
+  0% {
+    transform: translate(100px, 50px) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(0px, 0px) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100px, -50px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Fighter Info */
+.fighter-info {
+  text-align: center;
+  width: 100%;
+}
+
+.fighter-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.hp-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hp-bar-container {
+  width: 140px;
+  height: 16px;
+  background: #2d3436;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .hp-bar {
   height: 100%;
-  background: #4c4;
-  border-radius: 2px;
-  transition: width 0.3s;
-}
-
-.hp-bar.low { background: #c44; }
-
-.battle-menu {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.battle-menu button,
-.moves-list button {
-  padding: 10px 22px;
-  font-family: 'Courier New', monospace;
-  font-size: 15px;
-  background: #222;
-  color: #fff;
-  border: 2px solid #888;
+  background: linear-gradient(90deg, #00b894, #55a3ff);
   border-radius: 6px;
-  cursor: pointer;
+  transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 0 10px rgba(0,184,148,0.5);
 }
 
-.battle-menu button:hover,
-.moves-list button:hover {
-  background: #444;
-  border-color: #fff;
+.hp-bar.low {
+  background: linear-gradient(90deg, #e17055, #d63031);
+  box-shadow: 0 0 10px rgba(214,48,49,0.5);
 }
 
-.moves-list {
-  margin-top: 8px;
+.hp-text {
+  font-size: 12px;
+  font-weight: bold;
+  color: #ddd;
+}
+
+/* Slide-in Animations */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(300px) scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-20px) scale(1.05);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-300px) scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(20px) scale(1.05);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.fighting .comic-bubble {
+  animation: float 3s ease-in-out infinite, readyPulse 2s ease-in-out infinite;
+}
+
+/* VS Animation */
+.vs-animation {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  animation: vsEntrance 2s ease-out forwards;
+}
+
+.vs-text {
+  font-size: 72px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 
+    4px 4px 0 #e17055,
+    8px 8px 0 #d63031,
+    0 0 30px rgba(255,255,255,0.8);
+  animation: vsGlow 0.5s ease-in-out infinite alternate;
+}
+
+.vs-sparks {
+  font-size: 32px;
+  margin-top: 10px;
+  animation: sparkle 0.6s ease-in-out infinite;
+}
+
+@keyframes vsEntrance {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3) rotate(10deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(-5deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes vsGlow {
+  0% { text-shadow: 4px 4px 0 #e17055, 8px 8px 0 #d63031, 0 0 30px rgba(255,255,255,0.8); }
+  100% { text-shadow: 4px 4px 0 #e17055, 8px 8px 0 #d63031, 0 0 50px rgba(255,255,255,1); }
+}
+
+@keyframes sparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes readyPulse {
+  0%, 100% { filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8)); }
+  50% { filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.6)); }
+}
+
+/* Battle Log */
+.battle-log-container {
+  margin: 20px 0;
   width: 100%;
-  max-width: 380px;
-}
-
-.moves-list button {
-  display: block;
-  width: 100%;
-  margin: 4px 0;
-  padding: 8px 14px;
-  background: #1a1a3a;
-  border: 2px solid #66a;
-  text-align: left;
-}
-
-.moves-list button:hover {
-  background: #2a2a5a;
-  border-color: #aaf;
-}
-
-.move-type {
-  font-size: 11px;
-  color: #aaa;
-  margin-left: 6px;
+  max-width: 500px;
 }
 
 .battle-log {
-  margin-top: 12px;
-  font-size: 14px;
-  max-width: 400px;
+  background: rgba(0,0,0,0.7);
+  border: 2px solid #74b9ff;
+  border-radius: 12px;
+  padding: 16px 20px;
   text-align: center;
-  min-height: 38px;
-  color: #eee;
+  font-size: 16px;
+  min-height: 50px;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+/* Modal Battle Menus */
+.battle-modal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.95) 30%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 30px 20px;
+  z-index: 100;
+  animation: modalSlideUp 0.4s ease-out forwards;
+}
+
+@keyframes modalSlideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.battle-menu-modal,
+.moves-menu-modal {
+  background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+  border: 3px solid #74b9ff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.battle-menu-modal h3,
+.moves-menu-modal h3 {
+  margin: 0 0 20px 0;
+  color: #74b9ff;
+  font-size: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.menu-btn {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 16px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.fight-btn {
+  background: linear-gradient(135deg, #e17055 0%, #d63031 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(225,112,85,0.4);
+}
+
+.fight-btn:hover {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(225,112,85,0.6);
+}
+
+.run-btn {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(253,203,110,0.4);
+}
+
+.run-btn:hover {
+  background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(253,203,110,0.6);
+}
+
+.moves-grid {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.move-btn {
+  background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.move-btn:hover {
+  background: linear-gradient(135deg, #55a3ff 0%, #74b9ff 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,184,148,0.4);
+}
+
+.move-name {
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.move-details {
+  display: block;
+  font-size: 12px;
+  opacity: 0.9;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.back-btn {
+  background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  /* Battle overlay becomes full-viewport on mobile so content isn't clipped to canvas height */
+  .battle-overlay {
+    position: fixed;
+    inset: 0;
+    height: 100dvh;
+    overflow-y: auto;
+    padding: 12px;
+  }
+
+  .comic-battle-arena {
+    height: 200px;
+    margin-top: 16px;
+  }
+  
+  .vs-animation {
+    top: 35%;
+  }
+  
+  .vs-text {
+    font-size: 48px;
+  }
+  
+  .fighter {
+    width: 140px;
+  }
+  
+  .comic-bubble {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .perry-character {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .perry-face {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .battle-emoji {
+    font-size: 40px;
+  }
+
+  .upper-left {
+    top: 10px;
+    left: 10px;
+  }
+
+  .lower-right {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .battle-log {
+    font-size: 13px;
+    padding: 10px 14px;
+    min-height: 36px;
+  }
+
+  .battle-log-container {
+    margin: 10px 0;
+  }
+
+  /* Moves modal: constrained height + scrollable so text never clips */
+  .battle-menu-modal,
+  .moves-menu-modal {
+    padding: 16px;
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+
+  .battle-menu-modal h3,
+  .moves-menu-modal h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .move-btn {
+    padding: 10px 12px;
+  }
+
+  .move-name {
+    font-size: 14px;
+  }
+
+  .move-details {
+    font-size: 11px;
+  }
+
+  .menu-btn {
+    padding: 12px 18px;
+    font-size: 16px;
+  }
+}
+
+/* ── Game wrapper: stacks canvas + controls vertically ── */
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Mobile controls bar below game ── */
+.mobile-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 0;
+  background: #111;
 }
 
 /* ── Virtual D-pad ── */
 .dpad {
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
   display: grid;
   grid-template-areas:
     ". up ."
@@ -284,9 +1269,6 @@ canvas {
 
 /* ── Action button (dialog advance) ── */
 .action-btn {
-  position: absolute;
-  bottom: 22px;
-  right: 18px;
   width: 60px;
   height: 60px;
   background: rgba(80, 80, 200, 0.65);
@@ -312,7 +1294,7 @@ canvas {
 /* ── Larger touch targets for battle buttons on mobile ── */
 @media (pointer: coarse) {
   .battle-menu button,
-  .moves-list button {
+  .moves-grid button {
     padding: 14px 22px;
     font-size: 17px;
     min-height: 52px;
@@ -328,7 +1310,8 @@ canvas {
 /* ── Hide D-pad / action btn on desktop (mouse) ── */
 @media (hover: hover) and (pointer: fine) {
   .dpad,
-  .action-btn {
+  .action-btn,
+  .mobile-controls {
     display: none;
   }
 }
