@@ -12,6 +12,14 @@ const MAP_MUSIC = {
 function DPad({ onMove }) {
   const intervalsRef = useRef(new Map());
 
+  // Clear all running intervals when the component unmounts (e.g. battle starts mid-press)
+  useEffect(() => {
+    return () => {
+      intervalsRef.current.forEach((id) => clearInterval(id));
+      intervalsRef.current.clear();
+    };
+  }, []);
+
   const startMove = useCallback((dx, dy, e) => {
     e.preventDefault();
     // Capture this pointer so pointerup/cancel fire on this element even if finger drifts
